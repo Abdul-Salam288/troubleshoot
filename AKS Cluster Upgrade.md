@@ -1,6 +1,5 @@
-[[_TOC_]]
-
 **Note: Ensure if any operation is performed in AKS cluster then before proceeding wait for it to complete or abort first and then start new**
+**Note: Ensure the New Node Pool with one node can be created in Production Cluster**
 
 Below Command will help in checking the current operation and abort if required.
 ```
