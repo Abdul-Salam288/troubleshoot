@@ -2,6 +2,8 @@
 
 **Note: Ensure the New Node Pool with one node can be created in Production Cluster**
 
+**Note: az aks update command use with caution as it will reconcile complete cluster**
+
 Below Command will help in checking the current operation and abort if required.
 ```
 az aks show --resource-group $RG --name $CLUSTER --query "provisioningState"
