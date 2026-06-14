@@ -1,6 +1,6 @@
 **Note: Ensure if any operation is performed in AKS cluster then before proceeding wait for it to complete or abort first and then start new**
 
-**Note: Ensure the New Node Pool with one node can be created in Production Cluster**
+**Note: Ensure the New Node Pool with one node can be created in Production Cluster to see if any issue occurs**
 
 **Note: az aks update command use with caution as it will reconcile complete cluster**
 
@@ -8,6 +8,12 @@ Below Command will help in checking the current operation and abort if required.
 ```
 az aks show --resource-group $RG --name $CLUSTER --query "provisioningState"
 az aks operation-abort --resource-group $RG --name $CLUSTER
+```
+
+**Note: This command will fix the cluster if the cluster is in failed state**
+
+```
+az aks update --resource-group $RG --name $CLUSTER
 ```
 
 # Planning Phase
@@ -199,6 +205,22 @@ kubectl describe <constraints-name>
 ```
 
 - Verify also the Azure policy for vmss or virtual machine, this will impact directly the nodepool creation
+
+- Validate the pods can be run or not 
+
+```
+kubectl create -f network-pod.yml      <== checking any normal network pod can be started or not?
+```
+
+- Validate the helm chart could be able to run or not
+
+```
+helm pull <oci://internalacr.azureacr.io/charts/chart-name> --version 1.0.0
+helm template myapp ./chart-name > rendered.yaml
+kubectl apply --dry-run=server -f rendered.yaml
+```
+
+if a policy is blocked you will get error: addmission webhook "validation.gatekeeper.sh" denied the request
 
 
 
